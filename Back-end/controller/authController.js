@@ -1,5 +1,6 @@
 const User = require('../models/userModel')
 const catchAsync  = require('../routes/utills/catchAsync')
+const session = require('express-session')
 
 
 exports.getAllUser = catchAsync(async(req, res, next) => {
@@ -22,4 +23,22 @@ exports.signUp = catchAsync(async(req, res, next) => {
             user
         }
     })
+})
+
+
+exports.login = catchAsync(async(req, res, next) => {
+
+    const  { email } = req.body
+    const user = await  User.findOne(email)
+    res.status(200).json({
+        status: 'success',
+        data:{
+            user
+        } 
+    })
+})
+
+exports.sessionTimeOut = catchAsync(async(req, res, next) => {
+    const userId = req.session.userId;
+    const user = users[userId]
 })

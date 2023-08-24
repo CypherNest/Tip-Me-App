@@ -1,5 +1,7 @@
 const express = require('express');
 const dotenve = require('dotenv');
+const session = require('express-session')
+const redis = require('redis')
 
 
 dotenve.config({path: './config.env'})
@@ -7,6 +9,17 @@ dotenve.config({path: './config.env'})
 const userRouter = require('./routes/userRouter')
 
 const app = express();
+
+const redisClient = redis.createClient();
+
+app.use(session({
+    secret: process.env.REDIS_SECRET,
+    store: new (require('connect-redis')(session)({ client: redisClient })),
+    resave: false,
+    saveUninitialized: true
+}))
+
+req.session.isLoggedIn()
 
 
 

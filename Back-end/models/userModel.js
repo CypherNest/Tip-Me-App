@@ -61,6 +61,7 @@ name:{
         enum: ['user', 'admin'],
         default: 'user'
     },
+    devices:[],
     passChangedAt: Date,
     passExpires: Date
 })
@@ -72,6 +73,18 @@ userSchema.pre('save', async function(){
     this.password = await bcrypt.hash(this.password, 5);
     this.passConfirm = undefined
 })
+
+userSchema.pre('save', function(next){
+    if(this.isModified('password') || this.isNew)
+
+    this.passChangedAt = new Date
+    next()
+})
+
+userSchema.methods.correctPass = async function(candidiatePass, userpass){
+    return bcrypt.compare(candidiatePass, userpass);
+}
+
 
 
 const userModel = mongoose.model('User', userSchema)

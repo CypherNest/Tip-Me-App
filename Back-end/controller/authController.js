@@ -1,6 +1,7 @@
 const User = require('../models/userModel')
 const catchAsync  = require('../routes/utills/catchAsync')
 const session = require('express-session')
+const jwt = require('jwt');
 
 
 exports.getAllUser = catchAsync(async(req, res, next) => {
@@ -16,13 +17,37 @@ exports.getAllUser = catchAsync(async(req, res, next) => {
 
 
 exports.signUp = catchAsync(async(req, res, next) => {
-    const user = await User.create(req.body)
-    res.status(201).json({
-        status: 'success',
-        data:{
-            user
-        }
-    })
+
+    const Newuser = await User.create(req.body);
+
+    if(!Newuser){
+        res.status(403).json({
+            staus: 'success',
+            data:{
+                Newuser
+            }
+        })
+    }
+
+    const mail = Newuser.email
+
+    const atIdex = mail.indexOf('@');
+    const email = mail.replace(
+        mail.substring(2, atIdex), '*'.repeat(5));
+
+        const number = Newuser.phoneNumber;
+
+        const visileDigit = number.slice(-2);
+        const markedPadStart = '*'.repeat(7, -2);
+        const phoneNumber = markedPadStart+visileDigit
+        
+        res.status(201).json({
+            status: 'success',
+            data:{
+                email,
+                phoneNumber
+            }
+        })
 })
 
 
@@ -36,9 +61,4 @@ exports.login = catchAsync(async(req, res, next) => {
             user
         } 
     })
-})
-
-exports.sessionTimeOut = catchAsync(async(req, res, next) => {
-    const userId = req.session.userId;
-    const user = users[userId]
 })

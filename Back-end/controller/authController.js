@@ -1,7 +1,8 @@
 const User = require('../models/userModel')
 const catchAsync  = require('../routes/utills/catchAsync')
 const session = require('express-session')
-const jwt = require('jwt');
+const jwt = require('jsonwebtoken');
+const Mail = require('../')
 
 
 exports.getAllUser = catchAsync(async(req, res, next) => {
@@ -15,10 +16,34 @@ exports.getAllUser = catchAsync(async(req, res, next) => {
     })
 })
 
+const welcomeMail = async() => {
+    const newUser = await User.findOne({email});
+    const name = newUser.name;
+    const token = generateToken()
+    message = `Dear ${name.split(' ')[1].toUpperCase()} Welcome To Our Mobile Financial App\n
+    Kindly Verify Your registration with the Above OTP\n
+    Please Dont Share With Anyone ${token}\n
+    Only Valid For 10 min\n\n\n\n
+    Thanks For Your Support`
+
+Mail.sendMail({
+
+})
+
+}
+
+            //// Sign Up /////
 
 exports.signUp = catchAsync(async(req, res, next) => {
+    
+    const { email } = req.body
 
-    const Newuser = await User.create(req.body);
+    if(req.query.email){
+        const user = await User.findOne({email})
+
+    }
+
+    const Newuser = await User.create({email});
 
     if(!Newuser){
         res.status(403).json({
@@ -32,7 +57,7 @@ exports.signUp = catchAsync(async(req, res, next) => {
     const mail = Newuser.email
 
     const atIdex = mail.indexOf('@');
-    const email = mail.replace(
+    const Email = mail.replace(
         mail.substring(2, atIdex), '*'.repeat(5));
 
         const number = Newuser.phoneNumber;
@@ -44,7 +69,7 @@ exports.signUp = catchAsync(async(req, res, next) => {
         res.status(201).json({
             status: 'success',
             data:{
-                email,
+                Email,
                 phoneNumber
             }
         })

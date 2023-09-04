@@ -66,7 +66,6 @@ name:{
     passExpires: Date
 })
 
-
 userSchema.pre('save', async function(){
     if(!this.isModified('password'))
     return next();

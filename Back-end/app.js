@@ -14,7 +14,7 @@ const redisClient = redis.createClient();
 
 app.use(session({
     secret: process.env.REDIS_SECRET,
-    store: new (require('connect-redis')(session)({ client: redisClient })),
+    store: new (require('connect-redis'),(session)({ client: redisClient })),
     resave: false,
     saveUninitialized: true
 }))

@@ -3,18 +3,6 @@ const { nextTick } = require('process')
 const validator = require('validator')
 const bcrypt = require('bcrypt')
 
-const db = process.env.personal_DB;
-const DB = db.replace('<password>', process.env.personal_pass)
-
-
-console.log(DB)
-
-mongoose.connect(DB,{
-    family:4,
-    useNewUrlParser:true
-}).then(con => {
-    console.log(`Data Base Connection Successfully On Port ${process.env.SERVER_PORT}`)
-})
 
 
 const userSchema = new mongoose.Schema({

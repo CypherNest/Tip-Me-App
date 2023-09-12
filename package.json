@@ -29,7 +29,7 @@
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "jsonwebtoken": "^9.0.1",
-    "mongoose": "^7.4.4",
+    "mongoose": "^7.5.1",
     "node.js": "^0.0.1-security",
     "nodemailer": "^6.9.5",
     "nodemon": "^3.0.1",

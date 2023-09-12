@@ -4,10 +4,11 @@ const session = require('express-session')
 const redis = require('redis')
 const mongoose = require('mongoose')
 
-
 dotenve.config({path: './config.env'})
 
 const userRouter = require('./Back-end/routes/userRouter')
+console.log(process.env)
+
 
 const app = express();
 const port = process.env.SERVER_PORT || 4312

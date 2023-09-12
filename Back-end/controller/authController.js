@@ -1,5 +1,5 @@
 const User = require('../models/userModel')
-// const Mail = require('../routes/utills/email')
+const { sendEmail } = require('../routes/utills/email')
 const catchAsync  = require('../routes/utills/catchAsync')
 const session = require('express-session')
 const jwt = require('jsonwebtoken');
@@ -66,12 +66,12 @@ if(req.query.email){
                 Use this One Time Password (OTP) below complete your signUp\n
                 ${token} \n\n\n\n\n\nThanks for you surport`
             
-               // send a mail to the user 
-                // Mail.sendEmail({
-                //     email: newUser.email,
-                //     subject,
-                //     message
-                // });
+            //    send a mail to the user 
+                sendEmail({
+                    email: newUser.email,
+                    subject,
+                    message
+                });
             
             
             newUser.token = token;

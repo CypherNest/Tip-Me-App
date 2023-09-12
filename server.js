@@ -19,10 +19,6 @@ const DB = db.replace('<password>', process.env.personal_pass)
 console.log(DB)
 
 
-app.get('/', (req, res) => {
-    res.status(200).send('Express vercel')
-})
-
 const connectDB = async() => {
     
     try{

@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt')
 const db = process.env.personal_DB;
 const DB = db.replace('<password>', process.env.personal_pass)
 
+
 console.log(DB)
 
 mongoose.connect(DB,{

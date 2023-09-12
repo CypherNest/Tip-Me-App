@@ -19,6 +19,7 @@ exports.getAllUser = catchAsync(async(req, res, next) => {
     })
 })
 
+
 const generateToken = () => {
     const randomBytes = crypto.randomBytes(6);
     const randomInt = parseInt(randomBytes.toString('hex'), 16);

@@ -15,10 +15,11 @@ const port = process.env.SERVER_PORT || 4312
 const db = process.env.personal_DB;
 const DB = db.replace('<password>', process.env.personal_pass)
 
-
 console.log(DB)
 
+
 const connectDB = async() => {
+    
     try{
     const conn = await mongoose.connect(DB,{
     family:4,

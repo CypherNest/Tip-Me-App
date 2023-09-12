@@ -50,9 +50,11 @@ const sendCookie = (token, res) => {
 exports.signUp = catchAsync( async (req, res, next) => {
             
         const {email} = req.body;
+        console.log(email)
             
 if(req.query.email){
-            const newUser = await User.findOne({email});
+            const newUser = await User.findOne(req.body);
+            console.log({email})
             console.log(newUser)
             const name = newUser.name;
             const token = generateToken();

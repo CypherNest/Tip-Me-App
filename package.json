@@ -31,7 +31,7 @@
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.4.4",
     "node.js": "^0.0.1-security",
-    "nodemailer": "^6.9.4",
+    "nodemailer": "^6.9.5",
     "nodemon": "^3.0.1",
     "redis": "^4.6.8",
     "twilio": "^4.16.0",

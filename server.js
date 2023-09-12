@@ -39,7 +39,7 @@ const connectDB = async() => {
 
 
 app.get('/', (req, res) => {
-    res.status(200).send('Welcome To Tip-Me Mobile Application')
+    res.status(200).send(' Welcome To Tip-Me Mobile Application ')
 })
 
 

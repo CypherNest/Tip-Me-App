@@ -2,12 +2,12 @@
   "name": "tip-me",
   "version": "1.0.0",
   "description": "this a financial application that allowes you to send and receive money without liking your personal information to the world",
-  "main": "index.js",
+  "main": "server.js",
   "engine": {
     "node": "14.x"
   },
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",

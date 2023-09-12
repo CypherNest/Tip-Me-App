@@ -3,7 +3,10 @@ const { nextTick } = require('process')
 const validator = require('validator')
 const bcrypt = require('bcrypt')
 
-mongoose.connect(process.env.DATA_BASE_LOCAL,{
+const db = process.env.personal_DB;
+const DB = db.replace('<password>', process.env.personal_pass)
+
+mongoose.connect(DB,{
     family:4,
     useNewUrlParser:true
 }).then(con => {
@@ -63,8 +66,13 @@ name:{
     },
     devices:[],
     passChangedAt: Date,
-    passExpires: Date
-})
+    passExpires: Date,
+    active:{
+        type: Boolean,
+        default: true,
+        select: false
+    }
+});
 
 userSchema.pre('save', async function(){
     if(!this.isModified('password'))
@@ -87,7 +95,6 @@ userSchema.pre(/^find/, function(next){
 userSchema.methods.correctPass = async function(candidiatePass, userpass){
     return bcrypt.compare(candidiatePass, userpass);
 }
-
 
 
 const userModel = mongoose.model('User', userSchema)

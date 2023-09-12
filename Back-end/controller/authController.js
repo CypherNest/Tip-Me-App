@@ -2,7 +2,10 @@ const User = require('../models/userModel')
 const catchAsync  = require('../routes/utills/catchAsync')
 const session = require('express-session')
 const jwt = require('jsonwebtoken');
-const Mail = require('../')
+const Mail = require('../routes/utills/email');
+const twilio = require('twilio');
+
+
 
 
 exports.getAllUser = catchAsync(async(req, res, next) => {
@@ -28,7 +31,7 @@ const generateToken = () => {
         jwt.sign({Id}, process.env.JWT_SECRETE,{
         expiresIn: process.env.JWT_EXP
         })
-            
+        
 const sendCookie = (token, res) => {
     const cookieOption = {
         expires: new Date(
@@ -84,7 +87,7 @@ if(req.query.email){
                 const newUser = await User.findOne({email});
                 const name = newUser.name;
                 const token = generateToken()
-            
+        
                 if(req.query.Number === newUser.phoneNumber){
                     const accountSid = process.env.TWILIO_ACCOUNT_SID
                     const authToken = process.env.YOUR_TWILIO_AUTH_TOKEN;

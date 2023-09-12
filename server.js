@@ -10,7 +10,7 @@ dotenve.config({path: './config.env'})
 const userRouter = require('./Back-end/routes/userRouter')
 
 const app = express();
-const port = process.env.SERVER_PORT
+const port = process.env.SERVER_PORT || 4312
 
 const db = process.env.personal_DB;
 const DB = db.replace('<password>', process.env.personal_pass)

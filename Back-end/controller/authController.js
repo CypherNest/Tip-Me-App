@@ -4,6 +4,7 @@ const session = require('express-session')
 const jwt = require('jsonwebtoken');
 const Mail = require('../routes/utills/email');
 const twilio = require('twilio');
+const crypto = require('crypto')
 
 
 
@@ -53,9 +54,7 @@ exports.signUp = catchAsync( async (req, res, next) => {
         console.log(email)
             
 if(req.query.email){
-            const newUser = await User.findOne(req.body);
-            console.log({email})
-            console.log(newUser)
+            const newUser = await User.findOne({email});
             const name = newUser.name;
             const token = generateToken();
 

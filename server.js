@@ -7,7 +7,6 @@ const mongoose = require('mongoose')
 dotenve.config({path: './config.env'})
 
 const userRouter = require('./Back-end/routes/userRouter')
-console.log(process.env)
 
 
 const app = express();
@@ -17,6 +16,8 @@ const db = process.env.personal_DB;
 const DB = db.replace('<password>', process.env.personal_pass)
 
 console.log(DB)
+
+
 
 
 const connectDB = async() => {
@@ -32,6 +33,7 @@ const connectDB = async() => {
     process.exit(1)
 }
 }
+
 
 // const redisClient = redis.createClient();
 

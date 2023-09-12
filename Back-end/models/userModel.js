@@ -1,7 +1,9 @@
 const mongoose = require('mongoose')
 const { nextTick } = require('process')
 const validator = require('validator')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+
+
 
 
 const userSchema = new mongoose.Schema({
@@ -61,13 +63,18 @@ name:{
         type: Boolean,
         default: true,
         select: false
-    }
+    },
+    active:{
+        type: Boolean,
+        default: true
+    },
 });
 
-userSchema.pre('save', async function(){
+userSchema.pre('save', async function(next){
     if(!this.isModified('password'))
+
     return next();
-    this.password = await bcrypt.hash(this.password, 5);
+    this.password =  bcrypt.hash(this.password, 5);
     this.passConfirm = undefined
 })
 
@@ -79,7 +86,8 @@ userSchema.pre('save', function(next){
 })
 
 userSchema.pre(/^find/, function(next){
-    this.find({active:{$ne:true}});
+    this.find({active:{$ne:false}});
+
     next()
 })
 userSchema.methods.correctPass = async function(candidiatePass, userpass){

@@ -1,8 +1,8 @@
 const User = require('../models/userModel')
+const Mail = require('../routes/utills/email')
 const catchAsync  = require('../routes/utills/catchAsync')
 const session = require('express-session')
 const jwt = require('jsonwebtoken');
-const Mail = require('../routes/utills/email');
 const twilio = require('twilio');
 const crypto = require('crypto')
 

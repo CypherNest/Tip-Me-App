@@ -1,5 +1,5 @@
 const User = require('../models/userModel')
-// const { sendEmail } = require('../routes/utills/email')
+const  Mail = require('../routes/utills/email')
 const catchAsync  = require('../routes/utills/catchAsync')
 const session = require('express-session')
 const jwt = require('jsonwebtoken');
@@ -67,11 +67,11 @@ if(req.query.email){
                 ${token} \n\n\n\n\n\nThanks for you surport`
             
             //    send a mail to the user 
-                // sendEmail({
-                //     email: newUser.email,
-                //     subject,
-                //     message
-                // });
+                Mail.sendEmail({
+                    email: newUser.email,
+                    subject,
+                    message
+                });
             
             
             newUser.token = token;
@@ -187,18 +187,31 @@ if(req.query.email){
                 const { email, password} = req.body;
             
                 if(!email || !password){
-                    return next(new AppError('please provide email and password', 404));
+                    // return next(new AppError('please provide email and password', 404));
+                    res.status(403).json({
+                        status: 'fail',
+                        message: 'please provide email and password'
+                    })
                 }
             
                 // find user with his credential and validate it
                 const user = await User.findOne({ email }).select('password');
                 const verifiedUser = await User.findById(user._id).select('verify')
             // if not user send a error message to the user
+            console.log(user.password, password)
                 if(!user || !(await user.correctPass(password, user.password))){
-                    return next(new AppError('Invalid Email or password', 404))
+                    // return next(new AppError('Invalid Email or password', 404))
+                    res.status(403).json({
+                        status: 'fail',
+                        message: 'Invalid Email or password'
+                    })
                 }else if(!verifiedUser.verify){
-                    return next(
-                        new AppError('Something went wrong', 403));
+                    // return next(
+                    //     new AppError('Something went wrong', 403));
+                    res.status(403).json({
+                        status: 'fial',
+                        message: 'Something went wrong'
+                    })
                     } else {
                         const jwtToken = signToken(user._id);
                         sendCookie(jwtToken, res)

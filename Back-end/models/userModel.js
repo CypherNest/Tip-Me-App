@@ -17,7 +17,6 @@ name:{
         type: String,
         required: true,
         minlength:[8, 'password must be greater than 8 characters'],
-        select: false
     },
     passConfirm:{
         type:String,
@@ -64,14 +63,17 @@ name:{
         default: true,
         select: false
     },
-    active:{
-        type: Boolean,
-        default: true
+    token:{
+        type:String
     },
+    verify:{
+        type:String,
+    }
+    
 });
 
 userSchema.pre('save', async function(next){
-    if(!this.isModified('password'))
+    if(this.isModified('password'))
 
     return next();
     this.password =  bcrypt.hash(this.password, 5);
@@ -87,7 +89,6 @@ userSchema.pre('save', function(next){
 
 userSchema.pre(/^find/, function(next){
     this.find({active:{$ne:false}});
-
     next()
 })
 userSchema.methods.correctPass = async function(candidiatePass, userpass){

@@ -17,6 +17,7 @@ name:{
         type: String,
         required: true,
         minlength:[8, 'password must be greater than 8 characters'],
+        select: false
     },
     passConfirm:{
         type:String,
@@ -68,6 +69,7 @@ name:{
     },
     verify:{
         type:String,
+        select: false
     }
     
 });

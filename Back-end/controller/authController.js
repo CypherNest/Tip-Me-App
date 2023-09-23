@@ -54,7 +54,10 @@ exports.signUp = catchAsync( async (req, res, next) => {
         console.log(email)
             
 if(req.query.email){
-            const newUser = await User.findOne({email});
+    const  email = req.query.email
+    console.log(req.query)
+            const newUser = await User.findOne( { email } );
+            console.log(newUser)
             const name = newUser.name;
             const token = generateToken();
 
@@ -85,8 +88,10 @@ if(req.query.email){
             }
             
             if(req.query.Number){
-            
-                const newUser = await User.findOne({email});
+                const phoneNumber = req.query.Number;
+                console.log(req.query)
+                const newUser = await User.findOne( { phoneNumber } );
+                console.log(newUser);
                 const name = newUser.name;
                 const token = generateToken()
         
@@ -113,15 +118,16 @@ if(req.query.email){
             
                     res.status(200).json({
                         status:'success',
-                        message: 'A verificartion code was sent to you mobile Number'
+                        message: 'We send A verificartion code to you mobile Number'
                     });
                 }
             };
             
             
             if(req.query.verify){
+                const token = req.query.verify
             
-                const user = await User.findOne({email});
+                const user = await User.findOne( { token } );
             
                 if(!user){
                     return next(new AppError('please singUp with a valid credential', 400))

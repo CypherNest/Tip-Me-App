@@ -212,13 +212,13 @@ if(req.query.email){
                         status: 'fail',
                         message: 'Invalid Email or password'
                     })
-                }else if(!verifiedUser.verify){
-                    // return next(
-                    //     new AppError('Something went wrong', 403));
-                    res.status(403).json({
-                        status: 'fial',
-                        message: 'Something went wrong'
-                    })
+                // }else if(!verifiedUser.verify){
+                //     // return next(
+                //     //     new AppError('Something went wrong', 403));
+                //     res.status(403).json({
+                //         status: 'fial',
+                //         message: 'Something went wrong'
+                //     })
                     } else {
                         const jwtToken = signToken(user._id);
                         sendCookie(jwtToken, res)

@@ -51,7 +51,7 @@ const sendCookie = (token, res) => {
 exports.signUp = catchAsync( async (req, res, next) => {
             
         const {email} = req.body;
-        console.log(email)
+        console.log(email, req.body);
             
 if(req.query.email){
     const  email = req.query.email
@@ -143,21 +143,21 @@ if(req.query.email){
                         res.status(200).json({
                             status: "success",
                             data:{
+                                username: user.username,
+                                message:'confirmed',
                                 jwtToken,
-                                message:'confirmed'
-                        }
+                            }
+                        })
+                    }else {
+                        res.status(400).json({
+                        status:'failed',
+                        message: 'Invalid Token'
                     })
-                }else {
-                    res.status(400).json({
-                    status:'failed',
-                    message: 'Invalid Token'
-                })
+                }
             }
-            }
-            
-            
+
             const NewUser = (await User.create(req.body));
-            
+
             if(!NewUser){
                 return next(new AppError('Please use a valid credential', 400))
             }
@@ -176,17 +176,17 @@ if(req.query.email){
             
                 const jwtToken = signToken(NewUser._id)
             
-                    res.status(200).json({
-                        jwtToken,
-                        status: 'sucess',
-                        data:{
-                            PhoneNumber,
-                            Email,
-                            jwtToken
-                        }
-                    })
-                }
-            )
+                res.status(200).json({
+                    jwtToken,
+                    status: 'sucess',
+                    data:{
+                        PhoneNumber,
+                        Email,
+                        jwtToken
+                    }
+                })
+            }
+        )
             //////////////    Login Users //////////////
     exports.login = catchAsync(async(req, res, next) => {
             

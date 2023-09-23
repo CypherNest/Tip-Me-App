@@ -192,7 +192,7 @@ if(req.query.email){
             
                 const { email, password} = req.body;
                 console.log(req.body);
-            
+                console.log(email);
                 if(!email || !password){
                     // return next(new AppError('please provide email and password', 404));
                     res.status(403).json({
@@ -203,6 +203,7 @@ if(req.query.email){
             
                 // find user with his credential and validate it
                 const user = await User.findOne({ email }).select('password');
+                console.log(user, email)
                 const verifiedUser = await User.findById(user._id).select('verify')
             // if not user send a error message to the user
             console.log(user.password, password)

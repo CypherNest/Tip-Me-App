@@ -78,10 +78,10 @@ username:{
 
 userSchema.pre('save', async function(next){
     if(!this.isModified('password'))
-
     return next();
-    this.password =  bcrypt.hash(this.password, 5);
+    this.password = await bcrypt.hash(this.password, 5);
     this.passConfirm = undefined
+    next()
 })
 
 userSchema.pre('save', function(next){

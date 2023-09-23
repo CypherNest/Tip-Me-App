@@ -35,7 +35,7 @@ const connectDB = async() => {
 }
 
 
-app.get('/', (req, res) => {
+app.get('/api/V1/Tip_Me', (req, res) => {
     res.status(200).send(' Welcome To Tip-Me Mobile Application ')
 })
 

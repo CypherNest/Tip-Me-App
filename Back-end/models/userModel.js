@@ -13,6 +13,9 @@ name:{
     unique: true,
     minlength:[8, 'name must be greater than 8 character']
 },
+username:{
+    type:String
+},
     password:{
         type: String,
         required: true,

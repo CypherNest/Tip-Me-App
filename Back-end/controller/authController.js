@@ -208,6 +208,7 @@ if(req.query.email){
             console.log(user.password, password)
                 if(!user || !(await user.correctPass(password, user.password))){
                     // return next(new AppError('Invalid Email or password', 404))
+                    console.log('failed')
                     res.status(403).json({
                         status: 'fail',
                         message: 'Invalid Email or password'
@@ -220,6 +221,7 @@ if(req.query.email){
                 //         message: 'Something went wrong'
                 //     })
                     } else {
+                        console.log('success')
                         const jwtToken = signToken(user._id);
                         sendCookie(jwtToken, res)
                         res.status(200).json({
